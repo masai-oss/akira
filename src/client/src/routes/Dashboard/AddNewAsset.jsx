@@ -1,6 +1,9 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from "react";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import PropTypes from "prop-types";
+
 import {
   Container,
   Typography,
@@ -14,6 +17,7 @@ import {
   KeyboardDatePicker
 } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
+import * as AddAssetActionCreator from "../../redux/addAsset/actions";
 
 import styles from "./AddNewAsset.module.css";
 
@@ -56,6 +60,11 @@ class AddNewAsset extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      serialNo: "",
+      brand: "",
+      model: "",
+      cost: "",
+      category: 0,
       purchaseDate: new Date(Date.now())
     };
   }
@@ -72,8 +81,25 @@ class AddNewAsset extends React.Component {
   //   console.log(evt.target.files);
   // };
 
+  handleSubmit = e => {
+    const { serialNo, brand, model, cost, category, purchaseDate } = this.state;
+    e.preventDefault();
+    const { addAssetActions } = this.props;
+    const payload = {
+      serialNo,
+      brand,
+      model,
+      cost,
+      category,
+      purchaseDate
+    };
+
+    addAssetActions.addAsset(payload);
+  };
+
   render() {
     const { category, purchaseDate } = this.state;
+    // console.log(this.state, this.form, "props");
     return (
       <Container>
         <Typography variant="h4" component="h2" className={styles.heading}>
@@ -86,6 +112,7 @@ class AddNewAsset extends React.Component {
               helperText={el.helperText}
               variant="outlined"
               name={el.name}
+              onChange={evt => this.handleChange(evt)}
               fullWidth
               className={styles.inputField}
               type={el.type ? el.type : "text"}
@@ -146,7 +173,12 @@ class AddNewAsset extends React.Component {
               </Button>
             </label>
           </Box>
-          <Button variant="contained" color="primary" type="submit">
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
+            onClick={e => this.handleSubmit(e)}
+          >
             Submit
           </Button>
         </form>
@@ -155,4 +187,14 @@ class AddNewAsset extends React.Component {
   }
 }
 
-export default connect()(AddNewAsset);
+// const mapStateToProps = () => ({});
+
+AddNewAsset.propTypes = {
+  addAssetActions: PropTypes.bool.isRequired
+};
+
+const mapDispatchToProps = dispatch => ({
+  addAssetActions: bindActionCreators(AddAssetActionCreator, dispatch)
+});
+
+export default connect(AddNewAsset, mapDispatchToProps)(AddNewAsset);
