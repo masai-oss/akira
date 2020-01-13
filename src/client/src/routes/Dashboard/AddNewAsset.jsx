@@ -197,4 +197,4 @@ const mapDispatchToProps = dispatch => ({
   addAssetActions: bindActionCreators(AddAssetActionCreator, dispatch)
 });
 
-export default connect(AddNewAsset, mapDispatchToProps)(AddNewAsset);
+export default connect(mapDispatchToProps)(AddNewAsset);
