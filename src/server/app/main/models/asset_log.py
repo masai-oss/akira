@@ -15,6 +15,6 @@ class Asset_Log(db.Model):
     assigned_to = Column(
         Integer, ForeignKey("users.id"), nullable=False)
     date_of_assignment = Column(DateTime(timezone=True))
-    date_of_return = Column(DateTime(timezone=True)),
-    expected_date_of_return = Column(DateTime(timezone=True)),
+    date_of_return = Column(DateTime(timezone=True))
+    expected_date_of_return = Column(DateTime(timezone=True))
     remarks = Column(String(50))

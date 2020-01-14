@@ -21,5 +21,5 @@ class Asset(db.Model):
     date_of_disposal = Column(DateTime(timezone=True))
     category_id = Column(Integer, ForeignKey(
         "categories.id"), nullable=False)
-    data = Column(String(255)),
+    data = Column(String(255))
     assigned_to = Column(String(255))

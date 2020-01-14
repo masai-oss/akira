@@ -15,9 +15,9 @@ def get_logs(id):
                 "item_id": each.item_id,
                 "assigned_by": each.assigned_by,
                 "assigned_to": each.assigned_to,
-                "date_of_assignment": each.date_of_assignment,
-                "expected_date_of_return": each.expected_date_of_return,
-                "date_of_return": each.date_of_return,
+                "date_of_assignment": str(each.date_of_assignment),
+                "expected_date_of_return": str(each.expected_date_of_return),
+                "date_of_return": str(each.date_of_return),
                 "remarks": each.remarks
             }
         )

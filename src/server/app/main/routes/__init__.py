@@ -29,9 +29,9 @@ def add_resources(app):
 
     api.add_resource(Categories, '/categories')
     api.add_resource(Assets, "/assets", '/assets/<id>')
-    api.add_resource(AssetsLog, "/assets/assign")
-    api.add_resource(AssetsLog, "/assets/dispose")
-    api.add_resource(AssetsLog, '/asset_logs/<id>')
+    api.add_resource(AssetsLog, "/assets/assign", '/asset_logs/<id>')
+    api.add_resource(DisposeAsset, "/assets/dispose")
+    # api.add_resource(AssetsLog, '/asset_logs/<id>')
     api.add_resource(Dashboard, '/dashboard')
 
 
