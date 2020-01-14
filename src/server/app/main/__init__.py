@@ -8,6 +8,7 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_admin import Admin
 from flask_jwt_extended import JWTManager
+from flask_mail import Mail
 
 from .settings import config_by_name
 from app.main.utils.LogSetup import LogSetup
@@ -20,6 +21,7 @@ login_manager = LoginManager()
 flask_jwt_manager = JWTManager()
 api_blueprint = Blueprint('api', __name__)
 api = Api(api_blueprint)
+mail = Mail()
 
 
 def create_app(config_name):
@@ -35,7 +37,6 @@ def create_app(config_name):
     app = Flask(__name__)
     app.config.from_object(config_by_name[config_name])
     add_extentions(app=app)
-
 
     @app.after_request
     def after_request(response):
@@ -57,6 +58,7 @@ def create_app(config_name):
 
     return app
 
+
 def add_extentions(app):
     # api.init_app(app)
     db.init_app(app)
@@ -65,4 +67,4 @@ def add_extentions(app):
     login_manager.init_app(app)
     admin.init_app(app)
     flask_jwt_manager.init_app(app)
-    
+    mail.init_app(app)
