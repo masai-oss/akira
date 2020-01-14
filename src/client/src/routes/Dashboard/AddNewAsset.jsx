@@ -191,12 +191,6 @@ const mapStateToProps = () => ({});
 
 AddNewAsset.propTypes = {
   addAssetActions: PropTypes.bool.isRequired
-  // serialNo: PropTypes.string,
-  // brand: PropTypes.string,
-  // model: PropTypes.string,
-  // cost: PropTypes.string,
-  // category: PropTypes.string,
-  // purchaseDate: PropTypes.string
 };
 
 const mapDispatchToProps = dispatch => ({

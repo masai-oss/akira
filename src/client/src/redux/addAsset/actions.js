@@ -34,7 +34,7 @@ export const addAsset = payload => dispatch => {
     type: ADD_ASSET,
     payload: {},
     promise: axios.post("<POST_URL>", payload).then(response => {
-      //   console.log(payload)
+      //   console.log(payload);
       return response;
     })
   });
