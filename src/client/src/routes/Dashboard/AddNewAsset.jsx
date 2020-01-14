@@ -187,14 +187,20 @@ class AddNewAsset extends React.Component {
   }
 }
 
-// const mapStateToProps = () => ({});
+const mapStateToProps = () => ({});
 
 AddNewAsset.propTypes = {
   addAssetActions: PropTypes.bool.isRequired
+  // serialNo: PropTypes.string,
+  // brand: PropTypes.string,
+  // model: PropTypes.string,
+  // cost: PropTypes.string,
+  // category: PropTypes.string,
+  // purchaseDate: PropTypes.string
 };
 
 const mapDispatchToProps = dispatch => ({
   addAssetActions: bindActionCreators(AddAssetActionCreator, dispatch)
 });
 
-export default connect(mapDispatchToProps)(AddNewAsset);
+export default connect(mapStateToProps, mapDispatchToProps)(AddNewAsset);
