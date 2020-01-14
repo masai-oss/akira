@@ -10,7 +10,10 @@ import {
   Container,
   Typography
 } from "@material-ui/core";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import styles from "./Register.module.css";
+import { signupUser } from "../redux/authentication/actions";
 
 class Register extends Component {
   constructor() {
@@ -40,10 +43,24 @@ class Register extends Component {
     const { picture } = this.state;
     formData.append("picture", picture);
 
+    const { password, confirmPassword } = this.state;
+    const { signUpUser } = this.props;
+
     // Confirm Password
-    //     password !== confirmPassword
-    //       ? alert("Passwords don't match")
-    //       : alert("Form submitted");
+    if (password !== confirmPassword) {
+      alert("Passwords don't match");
+    } else {
+      alert("Form Submitted");
+    }
+
+    const data = {
+      ...this.state,
+      action: "sign_up_user",
+      invitation_id: "",
+      lang: "en"
+    };
+
+    signUpUser(data);
   };
 
   render() {
@@ -69,9 +86,9 @@ class Register extends Component {
               <FormControl>
                 <TextField
                   className={styles.textField}
-                  disabled
                   variant="outlined"
                   label="Email"
+                  name="email"
                   value={email}
                 />
               </FormControl>
@@ -204,4 +221,12 @@ class Register extends Component {
   }
 }
 
-export default Register;
+Register.propTypes = {
+  signUpUser: PropTypes.func.isRequired
+};
+
+const mapDispatchToProps = dispatch => ({
+  signUpUser: data => dispatch(signupUser(data))
+});
+
+export default connect(mapDispatchToProps)(Register);
