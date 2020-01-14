@@ -46,13 +46,6 @@ class Register extends Component {
     const { password, confirmPassword } = this.state;
     const { signUpUser } = this.props;
 
-    // Confirm Password
-    if (password !== confirmPassword) {
-      alert("Passwords don't match");
-    } else {
-      alert("Form Submitted");
-    }
-
     const data = {
       ...this.state,
       action: "sign_up_user",
@@ -60,7 +53,13 @@ class Register extends Component {
       lang: "en"
     };
 
-    signUpUser(data);
+    // Confirm Password
+    if (password !== confirmPassword) {
+      alert("Passwords don't match");
+    } else {
+      signUpUser(data);
+      alert("Form Submitted");
+    }
   };
 
   render() {
