@@ -7,17 +7,19 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_admin import Admin
-from flask_jwt_extended import JWTManager
+from flask_mail import Mail, Message
+# from flask_jwt_extended import JWTManager
 
 from .settings import config_by_name
 from app.main.utils.LogSetup import LogSetup
 
+mail = Mail()
 logs = LogSetup()
 db = SQLAlchemy()
 admin = Admin()
 flask_bcrypt = Bcrypt()
 login_manager = LoginManager()
-flask_jwt_manager = JWTManager()
+# flask_jwt_manager = JWTManager()
 api_blueprint = Blueprint('api', __name__)
 api = Api(api_blueprint)
 
@@ -64,5 +66,6 @@ def add_extentions(app):
     flask_bcrypt.init_app(app)
     login_manager.init_app(app)
     admin.init_app(app)
-    flask_jwt_manager.init_app(app)
+    mail.init_app(app)
+    # flask_jwt_manager.init_app(app)
     

@@ -17,12 +17,22 @@ class User(db.Model):
     __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String, nullable=False, unique=True)
     public_id = db.Column(db.String(50), unique=True)
-    username = db.Column(db.String(30), unique=True, nullable=False)
-    email = db.Column(db.String(100), unique=True, nullable=False)
-    name = db.Column(db.String(150), nullable=False)
+    invitation_id = db.Column(db.String(150), db.ForeignKey("invitation.invite_uid"), nullable=False)
+    username = db.Column(db.String(30), unique=True)
     admin = db.Column(db.Boolean, nullable=False, default=False)
-    password_hash = db.Column(db.String(100))
+    first_name = db.Column(db.String(255), nullable=False)
+    last_name = db.Column(db.String(255), nullable=False)
+    joining_date = db.Column(db.DateTime(timezone=True), nullable=False)
+    title = db.Column(db.String(255))
+    phone_number = db.Column(db.Integer, nullable=False)
+    profile_picture = db.Column(db.String(255))
+    gender = db.Column(db.String(50), nullable=False)
+    address = db.Column(db.String(255))
+    password_salt = db.Column(db.String(255))
+    password_hash = db.Column(db.String(255))
+    language = db.Column(db.String(100))
 
     @property
     def password(self):
