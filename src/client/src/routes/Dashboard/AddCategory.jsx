@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import {
   Container,
   Typography,
@@ -8,16 +9,22 @@ import {
   Box
 } from "@material-ui/core";
 import styles from "./AddCategory.module.css";
+import { addCategory } from "../../redux/categories/actions";
 
 class AddCategory extends Component {
   constructor(props) {
     super(props);
-
     this.state = {};
   }
 
   handleChange = evt => {
     this.setState({ [evt.target.name]: evt.target.value });
+  };
+
+  handleSubmit = () => {
+    const { addNewCategory } = this.props;
+    const { category } = this.state;
+    addNewCategory({ category_name: category });
   };
 
   render() {
@@ -45,7 +52,11 @@ class AddCategory extends Component {
           />
         </Box>
         <Box display="flex" justifyContent="center">
-          <Button variant="contained" color="primary">
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={this.handleSubmit}
+          >
             Add Category
           </Button>
         </Box>
@@ -54,4 +65,12 @@ class AddCategory extends Component {
   }
 }
 
-export default connect()(AddCategory);
+AddCategory.propTypes = {
+  addNewCategory: PropTypes.func.isRequired
+};
+
+const mapDispatchToProps = dispatch => ({
+  addNewCategory: payload => dispatch(addCategory(payload))
+});
+
+export default connect(null, mapDispatchToProps)(AddCategory);

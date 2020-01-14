@@ -3,30 +3,41 @@ import { connect } from "react-redux";
 import { Container, Typography } from "@material-ui/core";
 import UserCard from "../../components/UserCard";
 import styles from "./ListUsers.module.css";
+import axios from "../../utils/axiosInterceptor";
 
-const dummyData = [
-  {
-    id: 1,
-    username: "Karthikeyan",
-    title: "XYZ",
-    joiningDate: "22-09-2019",
-    picture:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/220px-User_icon_2.svg.png"
-  },
-  {
-    id: 2,
-    username: "Nikhil",
-    title: "ABC",
-    joiningDate: "23-01-2020",
-    picture:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/220px-User_icon_2.svg.png"
-  }
-];
+// const dummyData = [
+//   {
+//     id: 1,
+//     username: "Karthikeyan",
+//     title: "XYZ",
+//     joiningDate: "22-09-2019",
+//     picture:
+//       "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/220px-User_icon_2.svg.png"
+//   },
+//   {
+//     id: 2,
+//     username: "Nikhil",
+//     title: "ABC",
+//     joiningDate: "23-01-2020",
+//     picture:
+//       "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/220px-User_icon_2.svg.png"
+//   }
+// ];
 
 class ListUsers extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      data: []
+    };
+  }
+
+  componentDidMount() {
+    axios.get("/users").then(response =>
+      this.setState({
+        data: response.data.data
+      })
+    );
   }
 
   render() {

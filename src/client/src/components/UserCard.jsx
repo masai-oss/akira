@@ -7,7 +7,7 @@ import styles from "./UserCard.module.css";
 
 const UserCard = props => {
   const {
-    data: { id, username, title, joiningDate, picture }
+    data: { id, first_name, last_name, role, joining_date, picture }
   } = props;
   return (
     <Link to={`/dashboard/users/${id}`}>
@@ -15,17 +15,21 @@ const UserCard = props => {
         <div className={styles.details}>
           <CardContent className={styles.content}>
             <Typography component="h5" variant="h5">
-              {username}
+              {first_name + " " + last_name}
             </Typography>
             <Typography variant="h6" color="textSecondary">
-              {title}
+              {role}
             </Typography>
             <Typography variant="h6" color="textSecondary">
-              {joiningDate}
+              {joining_date}
             </Typography>
           </CardContent>
         </div>
-        <CardMedia className={styles.cover} image={picture} title={username} />
+        <CardMedia
+          className={styles.cover}
+          image={picture}
+          title={first_name}
+        />
       </Card>
     </Link>
   );

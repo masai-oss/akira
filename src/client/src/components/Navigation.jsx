@@ -34,6 +34,10 @@ const routes = [
     path: "/dashboard/assets/add_asset"
   },
   {
+    name: "Add Category",
+    path: "/dashboard/categories/add"
+  },
+  {
     name: "Delete Category",
     path: "/dashboard/categories/delete"
   },

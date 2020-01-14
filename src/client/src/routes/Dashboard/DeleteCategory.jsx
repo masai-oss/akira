@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import {
   Container,
   Typography,
@@ -8,28 +9,36 @@ import {
   Button
 } from "@material-ui/core";
 import styles from "./DeleteCategory.module.css";
-
-const availableCategories = [
-  {
-    id: 1,
-    name: "One"
-  },
-  {
-    id: 2,
-    name: "Two"
-  }
-];
+import axios from "../../utils/axiosInterceptor";
+import { deleteCategory } from "../../redux/categories/actions";
 
 class DeleteCategory extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      category: ""
+      category: "",
+      availableCategories: []
     };
   }
 
-  render() {
+  componentDidMount() {
+    axios
+      .get("/categories")
+      .then(res => this.setState({ availableCategories: res }));
+  }
+
+  handleChange = evt => {
+    this.setState({ [evt.target.name]: evt.target.value });
+  };
+
+  handleSubmit = () => {
+    const { deleteCurrentCategory } = this.props;
     const { category } = this.state;
+    deleteCurrentCategory({ category_id: category });
+  };
+
+  render() {
+    const { category, availableCategories } = this.state;
     return (
       <Container>
         <Typography variant="h4" component="h2" className={styles.heading}>
@@ -61,6 +70,7 @@ class DeleteCategory extends React.Component {
           color="primary"
           type="submit"
           className={styles.submit}
+          onClick={this.handleSubmit}
         >
           Submit
         </Button>
@@ -69,4 +79,12 @@ class DeleteCategory extends React.Component {
   }
 }
 
-export default connect()(DeleteCategory);
+DeleteCategory.propTypes = {
+  deleteCurrentCategory: PropTypes.func.isRequired
+};
+
+const mapDispatchToProps = dispatch => ({
+  deleteCurrentCategory: payload => dispatch(deleteCategory(payload))
+});
+
+export default connect(null, mapDispatchToProps)(DeleteCategory);

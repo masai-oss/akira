@@ -1,11 +1,13 @@
 from flask import request
 from flask_restful import Resource
-from ..services.assets_service import save_asset, get_assets, delete_asset
+from ..services.assets_service import save_asset, get_assets, get_asset, delete_asset
 
 
 class Assets(Resource):
-    def get(self):
-        return get_assets()
+    def get(self, id="null"):
+        if id == "null":
+            return get_assets()
+        return get_asset(id)
 
     def post(self):
         data = request.json

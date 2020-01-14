@@ -3,7 +3,51 @@ from app.main import db
 
 
 def get_assets():
-    pass
+    # Filter and sort not implemented
+    
+    raw_data = Asset.query.all()
+
+    contents = []
+    for each in raw_data:
+        contents.append(
+            {"item_uid": each.item_uid, "item_name": each.item_name, "assigned_to": each.assigned_to})
+    response_object = {
+        "comment": "Received All Assets",
+        "data": contents
+    }
+
+    return response_object, 200
+
+def get_asset(id):
+    raw_data = db.engine.execute(
+        "SELECT * FROM assets WHERE id = %s", (id,)
+    )
+
+    contents = []
+    for each in raw_data:
+        contents.append(
+            {
+                "id": each.id, 
+                "serial_number": each.serial_number, 
+                "brand": each.brand,
+                "model": each.model,
+                "item_name": each.item_name,
+                "cost": each.cost,
+                "date_of_purchase": each.date_of_purchase,
+                "item_uid": each.item_uid,
+                "picture": each.picture,
+                "status": each.status,
+                "category_id": each.category_id,
+                "disposed_by": each.disposed_by,
+                "date_of_disposal": each.date_of_disposal
+            }
+        )
+    response_object = {
+        "comment": "Received Asset Details",
+        "data": contents
+    }
+
+    return response_object, 200
 
 
 def save_changes(data):
