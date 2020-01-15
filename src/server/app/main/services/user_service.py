@@ -1,6 +1,8 @@
 from app.main.models.user import User
 from app.main import login_manager, db
 import uuid
+import time
+from datetime import datetime, timedelta
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -15,29 +17,41 @@ def load_user(user_id):
     """
     return User.query.get(int(user_id))
 
-def save_new_user(data):
-    user = User.query.filter_by(email=data['email']).first()
-    if not user:
+def save_new_user(data, args):
+    invitation_token = args["invitation_token"]
+
+    invite_id = db.engine.execute("SELECT invite_uid FROM invitation WHERE invite_uid=%s and email=%s", (str(invitation_token), str(data.get("email")),)).first()
+    if invite_id != None:
+        title = db.engine.execute("SELECT title FROM invitation WHERE invite_uid=%s", (str(invitation_token),)).first()
         new_user = User(
             public_id=str(uuid.uuid4()),
-            email=data['email'],
+            invitation_id = invite_id[0],
             username=data['username'],
-            name=data['name'],
             admin=data.get('admin', False),
-            password=data.get('password', None)
+            first_name=data['first_name'],
+            last_name=data['last_name'],
+            joining_date = str(datetime.now()),
+            title = title[0],
+            phone_number = data['phone_number'],
+            gender = data['gender'],
+            address = data['address'],
+            password = data.get('password', None),
+            language = data['language']
         )
         save_changes(new_user)
+        status_code = 200
         response_object = {
-            'status': 'success',
-            'message': 'Successfully registered.'
+            "comment": "User added",
+            "data": {}
         }
-        return response_object, 201
+        return response_object, status_code
     else:
-        response_object = {
-            'status': 'fail',
-            'message': 'User already exists. Please Log in.',
+        status_code = 400
+        response_object={
+            "comment": "Ivitation Expaired",
+            "data": {}
         }
-        return response_object, 409
+        return response_object, status_code
 
 
 def get_all_users():

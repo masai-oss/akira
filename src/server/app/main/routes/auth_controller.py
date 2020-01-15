@@ -15,7 +15,8 @@ class UserSignUp(Resource):
     def post(self):
         """Creates a new User """
         data = request.json
-        return save_new_user(data=data)
+        args = request.args
+        return save_new_user(data=data, args=args)
 
 
 class UserLogin(Resource):

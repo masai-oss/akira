@@ -1,14 +1,14 @@
 from app.main.models.user import User
 
-
 class Auth:
     @staticmethod
     def login_user(data):
         # import pdb; pdb.set_trace()
+        logging.info(data['password'])
         try:
             # fetch the user data
-            user = User.query.filter_by(email=data.get('email')).first()
-            if user and user.check_password(data.get('password')):
+            user = User.query.filter_by(email=data['email']).first()
+            if user and user.check_password(data['password']):
                 auth_token = user.encode_auth_token(user.id)
                 if auth_token:
                     response_object = {

@@ -7,18 +7,21 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_admin import Admin
+from flask_mail import Mail, Message
+# from flask_jwt_extended import JWTManager
 from flask_jwt_extended import JWTManager
-from flask_mail import Mail
+
 
 from .settings import config_by_name
 from app.main.utils.LogSetup import LogSetup
 
+mail = Mail()
 logs = LogSetup()
 db = SQLAlchemy()
 admin = Admin()
 flask_bcrypt = Bcrypt()
 login_manager = LoginManager()
-flask_jwt_manager = JWTManager()
+# flask_jwt_manager = JWTManager()
 api_blueprint = Blueprint('api', __name__)
 api = Api(api_blueprint)
 mail = Mail()
