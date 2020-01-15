@@ -3,6 +3,7 @@ import unittest
 
 from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager
+from flask_cors import CORS
 from app.main import create_app, db
 from app.main.routes import add_resources, register_blueprints
 from app.main.models import *
@@ -10,6 +11,7 @@ from app.main import api, api_blueprint
 
 app = create_app(os.getenv('FLASK_ENV') or 'dev')
 app.app_context().push()
+CORS(app)
 manager = Manager(app)
 migrate = Migrate(app, db, render_as_batch=True)
 manager.add_command('db', MigrateCommand)
@@ -27,6 +29,7 @@ def run():
     register_blueprints(app)
     app.run()
 
+
 @manager.command
 def test():
     """
@@ -37,6 +40,7 @@ def test():
     if result.wasSuccessful():
         return 0
     return 1
+
 
 if __name__ == "__main__":
     manager.run()

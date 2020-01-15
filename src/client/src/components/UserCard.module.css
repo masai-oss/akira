@@ -1,0 +1,18 @@
+.card {
+  display: flex;
+  justify-content: space-between;
+  margin: 30px 0;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1 0 auto;
+}
+
+.cover {
+  width: 30%;
+}

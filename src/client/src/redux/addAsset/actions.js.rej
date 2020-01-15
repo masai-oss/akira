@@ -1,0 +1,4 @@
+diff a/src/client/src/redux/addAsset/actions.js b/src/client/src/redux/addAsset/actions.js	(rejected hunks)
+@@ -1 +1 @@
+-import ADD_ASSET  from "./actionType";
++import ADD_ASSET from "./actionType";

@@ -5,10 +5,21 @@ from app.main.routes.signin_controller import Signin
 from app.main import api
 # from app.main.routes.
 
+from app.main.routes.categories_controller import Categories
+from app.main.routes.assets_controller import Assets
+from app.main.routes.assets_log_controller import AssetsLog
+from app.main.routes.localization_controller import Localization
+from app.main.routes.invite_user import InviteUser
+
+from app.main.routes.dispose_asset import DisposeAsset
+from app.main.routes.dashboard_controller import Dashboard
+
+
+
 def add_resources(app):
     """
     Method to add resources to app context
-    
+
     Args:
         app (object): object of Flask representing the app in context
     """
@@ -20,12 +31,21 @@ def add_resources(app):
     api.add_resource(InviteUser, '/users/invite')
     # api.add_resource(Signin, '/auth/login')
 
+    api.add_resource(Localization, "/localization")
+    api.add_resource(InviteUser, "/invite")
+
+    api.add_resource(Categories, '/categories')
+    api.add_resource(Assets, "/assets", '/assets/<id>')
+    api.add_resource(AssetsLog, "/assets/assign", '/asset_logs/<id>')
+    api.add_resource(DisposeAsset, "/assets/dispose")
+    # api.add_resource(AssetsLog, '/asset_logs/<id>')
+    api.add_resource(Dashboard, '/dashboard')
 
 
 def register_blueprints(app):
     """
     Method to add blueprints to app context
-    
+
     Args:
         app (object): object of Flask representing the app in context
     """

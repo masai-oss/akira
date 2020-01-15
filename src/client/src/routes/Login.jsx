@@ -1,12 +1,10 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import {
   FormGroup,
   FormControl,
   TextField,
   Button,
   Container,
-  FormHelperText,
   Typography
 } from "@material-ui/core";
 import styles from "./Login.module.css";
@@ -22,7 +20,6 @@ class Login extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    alert("Logged in");
   };
 
   handleChange = e => {
@@ -62,16 +59,15 @@ class Login extends Component {
                   id="password"
                   value={password}
                 />
-
-                <Link to="/login">
-                  <FormHelperText className={styles.margin}>
-                    Forgot Password?
-                  </FormHelperText>
-                </Link>
               </FormControl>
             </FormGroup>
-            <Button variant="contained" type="submit">
-              Login
+            <Button
+              variant="contained"
+              color="primary"
+              type="submit"
+              className={styles.submit}
+            >
+              Submit
             </Button>
           </form>
         </Container>
